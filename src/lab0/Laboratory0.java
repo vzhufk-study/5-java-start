@@ -4,24 +4,24 @@ public class Laboratory0 {
 
     //Begin3*. You have two sides of rectangle a and  b. Find it's Square (S = a * b) and Perimeter (P = 2 * ( a + b).
     public int[] inputOutputTask(int a, int b) {
-        if (a <= 0 || b <= 0) {
-            throw new AssertionError();
-        } else {
+        assert a > 0;
+        assert b > 0;
+
             int[] result = new int[2];
 
             result[0] = a * b;
             result[1] = 2 * (a + b);
             return result;
         }
-    }
 
+
+
+    int bytesInKilobyte = 1024;
     //Integer3*. You have size of file in bytes. Using mod operation, find out size of this file in kilobytes.
     //(1 kilobyte = 1024 bytes).
     public int integerNumbersTask(int k) {
-        if (k < 0) {
-            throw new AssertionError();
-        }
-        return k / 1024;
+        assert k > 0;
+        return k / bytesInKilobyte;
     }
 
     //Boolean3. You have integer number A. Find out if assertion:" A is odd." is true.
@@ -46,9 +46,9 @@ public class Laboratory0 {
     //Case3. You have number of a month.
     // Display season ny month.
     public Season switchTask(int month) {
-        if ((month < 0) || (month > 12)) {
-            throw new AssertionError();
-        }
+        assert month > 0;
+        assert month < 12;
+
         month %= 12;
         month /= 3;
 
@@ -82,24 +82,20 @@ public class Laboratory0 {
     // X – X3/(3!) + X5/(5!) – … + (–1)N·X2·N+1/((2·N+1)!)
     //(N! = 1·2·…·N).
     // This value is closed to value of Sin function in X.
-    private long fact(int n) {
-        if (n > 1) {
-            return n * fact(n - 1);
-        } else {
-            return 1;
-        }
-    }
 
     public double forTask(double x, int n) {
-        if (n < 0) {
-            throw new AssertionError();
-        }
-        double S = 0;
+        assert n > 0;
+        byte sign = 1, j = 1;
+        double s = 0, powered_x = x;
+        long fact = 1;
         for (int i = 0; i < n; ++i) {
-            S += Math.pow(-1, i) * Math.pow(x, 2 * i + 1) / fact(2 * i + 1);
+            s += sign * powered_x / fact;
 
+            powered_x *= x * x;
+            fact *= ++j * ++j;
+            sign *= -1;
         }
-        return S;
+        return s;
     }
 
     //While3. You have two integer numbers N and K. Using only operations of adding and subtraction
@@ -119,9 +115,11 @@ public class Laboratory0 {
     //Array20. You have array size N< and integer numbers K and L ( 1 < K < L < N).
     //Get sum of elements in array from K to L.
     public double arrayTask(double[] array, int k, int l) {
-        if ((k < 0) || (l < 0) || (l > array.length) || (k > l)) {
-            throw new AssertionError();
-        }
+        assert k >= 0;
+        assert l >= 0;
+        assert l < array.length;
+        assert k < l;
+
         double S = 0;
         for (int i = k; i <= l; ++i) {
             S += array[i];
@@ -132,12 +130,10 @@ public class Laboratory0 {
     //Matrix49. You have matrix size of M * N.
     //Change it by swap min and max element in each row.
     public int[][] twoDimensionArrayTask(int[][] array) {
-        int m = array.length;
-        int n = array[0].length;
-        for (int i = 0; i < m; ++i) {
+        for (int i = 0; i < array.length; ++i) {
             int max = 0;
             int min = 0;
-            for (int j = 1; j < n; ++j) {
+            for (int j = 1; j < array[i].length; ++j) {
                 if (array[i][j] > array[i][max]) {
                     max = j;
                 }
